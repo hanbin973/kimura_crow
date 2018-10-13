@@ -1,3 +1,3 @@
-# Solution for "An Introduction to Population Genetics Theory"
-Solution for Crow & Kimura, Reprint (2009)
+# Solution to "An Introduction to Population Genetics Theory"
+Solution to Crow & Kimura, Reprint (2009)
 
