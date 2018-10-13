@@ -10,7 +10,6 @@
 \newtheorem{problem}{Problem}[chapter]
 
 
-
 %%%%%%%%%%%%%%5
 \begin{document}
 \begin{titlepage}
@@ -251,5 +250,86 @@ Hanbin Lee
             \end{proof}
         \end{problem}
 
+        \newpage
 
+        \chapter{Randomly Mating Populations}
+        In all problems, unless the contrary is stated, assume random mating.
+        \begin{problem}
+            In a population there are 8 times as many heterozygotes as homozygous recessives. 
+            What is the frequency of the recessive gene?
+            \begin{proof}
+                Let $p$ and $q$ be the frequency of each allele.
+                Then, $2pq = 8 \cdot q^2 \Rightarrow p=4q$ so $q=\frac{1}{5}$.
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            Show that, for a very rare recessive gene, the proportion of heterozygous carriers is approximately twice the frequeny of the recessive gene.
+            \begin{proof}
+                The proportion of heterozygotes is $2pq$. The frequency of recessive gene is $q$.
+                Then the raito of these two values is $\frac{2pq}{q} = 2p \approx 2$.
+            \end{proof}                
+        \end{problem}
+
+        \begin{problem}
+            If 16\% of the population are Rh- (dd), what fraction of the Rh+ population (DD and Dd) are homozygous?
+            \begin{proof}
+                We obtain $q = \sqrt{16/100} = 0.04$. 
+                The value that we are computing is given by
+                \begin{equation*}
+                    \frac{p^2}{p^2+2pq} 
+                    = \frac{p}{p+2q} 
+                    = \frac{0.96}{0.96+2 \cdot 0.04}
+                    \approx 0.92
+                \end{equation*}
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            From the data in problem 3, what fraction of the children from a large group of families where both parents were Rh+ would be expected to be Rh+?
+            \begin{proof}
+                The frequency of gamete with allele $d$ is $\frac{2pq}{2pq+2pq+2p^2} = \frac{pq}{2pq+p^2} \approx 0.038$. 
+                Then the frequency of Rh+ progeny is $1-0.038^2 = 0.996$.
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            Show that if the A and B antigens of the ABO blood group system were caused by two dominant genes, independently inherited, the product of the frequency of A and B should equal the product of O and AB.
+            \begin{proof}
+                Let $a_1, a_2$ be the frequency of allele $A, a$ and $b_1, b_2$ be the frequency of allele $B, b$.
+                Then the frequencies of $A$ and $B$ are $(a_1^2+2a_1a_2) \cdot b_2^2$ and $(b_1^2+2b_1b_2) \cdot a_2^2$.
+                The frequencies of $O$ and $AB$ are $a_2^2 \cdot b_2^2$ and $(a_1^2+2a_1a_2) \cdot (b_1^2+2b_1b_2)$.
+                Therefore, the products of these values are equal.
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            What is the maximum proportion of heterozygotes with two allels? With three allels? With $n$ allels?
+            \begin{proof}
+                
+                \begin{description}
+                    \item[i) Biallelic]
+                This is a simple example of the inequality of arthmetic and geometric means.
+                Under $p+q=1$, the maximum value of $2pq$ is $1/4$ since $2 \sqrt{pq} \leq p+q$.
+
+                    \item[ii) Triallelic]
+                We need to compute the maximum value of $1-(p^2+q^2+r^2)$ under the constraint $p+q+r=1$. 
+                Let $f(p,q,r) = 1-(p^2+q^2+r^2)$ and $g(p,q,r)=p+q+r$.
+                Then we have to attain the maximum of $f(p,q,r)$ under $g(p,q,r)=1$.
+                We proceed with the Lagrange multiplier criterion. 
+                \begin{equation*}
+                    \nabla{f} = \lambda \nabla{g} \Leftrightarrow
+                    (-2) \cdot (p,q,r) = \lambda \cdot (1,1,1)
+                \end{equation*}
+
+                Now we have $(p,q,r) = -\frac{\lambda}{2}(1,1,1)$.
+                Substituting these values to $p+q+r=1$ yields $-\frac{3\lambda}{2} = 1 $ resulting $\lambda = -\frac{2}{3}$ so $p=q=r=\frac{1}{3}$.
+                Thus, we have $\frac{2}{3}$ as the maximum value.
+
+                    \item[iii) $n$-allelic]
+                        The proof is identical to that of case ii) so we omit the details.
+                \end{description}
+            \end{proof}
+
+        \end{problem}
 \end{document}
