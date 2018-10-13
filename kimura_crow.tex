@@ -1,0 +1,55 @@
+\documentclass[12pt]{report}
+\usepackage[left=2cm,right=2.6cm,top=2.6cm,bottom=3cm,a4paper]{geometry}
+\renewcommand{\baselinestretch}{1.3}
+
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath, amssymb, latexsym, amsfonts, amsthm}
+
+%% theorem specification
+\newtheorem{problem}{Problem}[section]
+\newtheorem{solution}{Solution}
+
+
+
+%%%%%%%%%%%%%%5
+\begin{document}
+\begin{titlepage}
+\centering
+{\scshape\LARGE Solution to  \\
+An Introduction to Population Genetics Theory \par}
+\vspace{1.5cm}
+{\large Author: \\
+    James F. Crow \\
+    Motoo Kimura \par}
+\vspace{1.5cm}
+Solution by \\
+Hanbin Lee
+
+\end{titlepage}
+
+\tableofcontents
+
+\chapter{Models of Population Growth}
+
+\begin{problem}
+    In a population with discrete generations and with fitness $w$, how many generations are required to double the population number?
+
+    \begin{proof}
+        By the definition of fitness in discrete generations, $w$ is given by $w = \frac{N_{i+1}}{N_i}$.
+        This gives $N_{i} = w^{i} N_0$. 
+        Since $N_i = 2N_0$ by the given condition, $i = \log{2}/\log{w}$.
+    \end{proof}
+\end{problem}
+
+\begin{problem}
+    How long is required for the population to double with model 2?
+    
+    \begin{proof}
+        By the definition of fitness in continuous generations, $w$ is given by $w = \frac{1}{N} \frac{dN}{dt}$.
+        This gives $\frac{1}{N}dN = wdt$ followed by $\int_{N_0}^{N} \frac{1}{N}dN = \int_{t_0}^{t} w dt$. 
+        Therefore, $\log2 = \log{\frac{N}{N_0}} = w(t - t_0)$.
+    \end{proof}
+\end{problem}
+
+\end{document}
