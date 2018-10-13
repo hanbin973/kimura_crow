@@ -29,146 +29,227 @@ Hanbin Lee
 
 \tableofcontents
 
-\chapter{Models of Population Growth}
-
-\begin{problem}
-    In a population with discrete generations and with fitness $w$, how many generations are required to double the population number?
-
-    \begin{proof}
-        By the definition of fitness in discrete generations, $w$ is given by $w = \frac{N_{i+1}}{N_i}$.
-        This gives $N_{i} = w^{i} N_0$. 
-        Since $N_i = 2N_0$ by the given condition, $i = \log{2}/\log{w}$.
-    \end{proof}
-\end{problem}
-
-\begin{problem}
-    How long is required for the population to double with model 2?
-    
-    \begin{proof}
-        By the definition of fitness in continuous generations, $w$ is given by $w = \frac{1}{N} \frac{dN}{dt}$.
-        This gives $\frac{1}{N}dN = wdt$ followed by $\int_{N_0}^{N} \frac{1}{N}dN = \int_{t_0}^{t} w dt$. 
-        Therefore, $\log2 = \log{\frac{N}{N_0}} = w(t - t_0)$.
-    \end{proof}
-\end{problem}
-
-\begin{problem}
-    A population under model 3 has reached age stability. 
-    How long, in units of $\lambda$, will be required for the population to double? 
-    What is the effective generation length, defined as the unit that will give the same answer as problem 1?
-
-    \begin{proof}
-        Assume that, like the textbook, every individual lives for 5 years.
-
-        Let $n_t = (n_{0t}, n_{1t}, \ldots, n_{4t})^T$, $(b_0, b_1, \ldots, b_4)$ and $(p_0, \ldots, p_3)$ denote the number of individuals in each age, reproduction rates of each age and probability of survival of each age respectively.
-        Then the following matrix equation holds:
-        \begin{equation*}
-            n_t = 
-            \begin{pmatrix}
-                n_{0,t}\\
-                n_{1,t}\\
-                n_{2,t}\\
-                n_{3,t}\\
-                n_{4,t}\\
-            \end{pmatrix} =  
-            \begin{pmatrix}
-                b_0 & b_1 & b_2 & b_3 & b_4 \\
-                p_0 & 0 & 0 & 0 & 0\\
-                0 & p_1 & 0 & 0 & 0\\
-                0 & 0 & p_2 & 0 & 0\\
-                0 & 0 & 0 & p_3 & 0\\
-            \end{pmatrix}
-            \begin{pmatrix}
-                n_{0,t-1}\\
-                n_{1,t-1}\\
-                n_{2,t-1}\\
-                n_{3,t-1}\\
-                n_{4,t-1}\\
-            \end{pmatrix} 
-            = A \cdot n_{t-1}
-        \end{equation*}
-
-        Then, by induction, we obtain $n_t = A^{t}n_0$.
-        To compute the power of the matrix $A$, we compute the characteristic polynomial and assume that it has at least one zero:
-        \begin{equation*}
-            \det{(A-\lambda I)} = \lambda^5 -b_0\lambda^4 -p_0b_1\lambda^3 - p_0p_1b_2\lambda^2 - p_0p_1p_2b_3\lambda - p_0p_1p_2p_3b_4 
-        \end{equation*}
-        
-        Under suitable conditions, the polynomial above has a single positive largest(in terms of absolute value) zero $\lambda^*$ and a corresponding eigenvector $l^*$.
-
-        For a large $t$, $({l^*})^t$ dominates all other power of eigenvalues, so $M^t n_0$, which is expressed as a linear combination of power of eigenvalues, can be approximated by
-        \begin{equation*}
-            M^{t} n_0 \approx C M^{t} l = C {(\lambda^*)}^t l
-        \end{equation*}
-        where $C$ is a constant determined by the initial condition.
-
-        $N_t$, the size of the population at time $t$, is given as the sum of entries of $n_t$.
-        Therefore, $N_t = n_0 + n_1 + \ldots + n_4 = C' (\lambda^*)^t$ by the above equation.
-        Hence, using $N_t = 2N_0$, we get $t = \log{2}/\log{\lambda}$.
-    \end{proof}
-\end{problem}
-
-\begin{problem}
-    Suppose you know the age-specific death rates (the probability that an individual of age x will die during the next time unit). What is the life expectancy, that is, the mean length of life? What is the median length of life?
-
-    \begin{proof}
-        Let $\{p_i\}_{i \in \mathbb{Z}_{\geq 0}}$ be the probability that an individual will survive during age $i$.
-        Then the probability of survival until age t is given as the product of $p_i$ from $0$ to $t-1$.
-        Thus, the expectation is given by
-        \begin{equation*}
-            E(X) = \sum_{k=0}^{\infty} \left( k \cdot \prod_{i=0}^{k}p_i \right)
-        \end{equation*}
-
-        The median value can also be computed in a similar manner using formulas from basic probability theory.
-    \end{proof}
-\end{problem}
-
+    \chapter{Models of Population Growth}
 
     \begin{problem}
-        Show that equation $1.6.8a$ is correct for any number of strains.
+        In a population with discrete generations and with fitness $w$, how many generations are required to double the population number?
+
         \begin{proof}
-            Suppose that there are $k$ strains and $n_1, \ldots, n_k$ individuals for each strain. The Malthusian parameters of each strain is given as $r_1, \ldots, r_k$.
-
-            Now we use the same method in the textbook.
-            \begin{equation*}
-                \begin{split}
-                    \frac{d \ln(p_1/(1-p_1))}{dt}
-                    &= \frac{d \ln(n_1/(N-n_1)}{dt}  \\
-                    &= \frac{d n_1}{dt} - \frac{d (N-n_1)}{dt} \\
-                    &= \frac{d \ln{n_1}}{n_1 dt} - \frac{d \ln(N-n_1)}{(N-n_1) dt} \\
-                    &= r_1 - \bar{r}_1
-                \end{split}
-            \end{equation*}
-            Here, $\bar{r}_i$ denotes the mean parameter except for the $i$-th strain. 
-
-            Notice also that
-            \begin{equation*}
-                \begin{split}
-                    \frac{d \ln(p_1/(1-p_1))}{dt}
-                    &= \frac{\ln{p_1}}{dt} - \frac{\ln{1-p_1}}{dt} \\
-                    &= \frac{d p_1}{p_1 dt} - \frac{d (1-p_1)}{(1-p_1)dt} \\
-                    & = \frac{dp_1}{p_1(1-p_1)dt}
-                \end{split}
-            \end{equation*}
-
-            Putting these two equations together gives
-            \begin{equation*}
-                \begin{split}
-                    \frac{dp_1}{dt} 
-                    &= (r_1-\bar{r}_1)p_1(1-p_1) \\
-                    &= ((N-n_1)r_1 - (n_2r_2 + \ldots + n_kr_k)) \cdot p_1 \cdot
-                    \left(\frac{1}{N-n_1}\right) \cdot (1-p_1) \\
-                    &= (Nr_1 - (n_1r_1 + \ldots + n_kr_k)) \cdot p_1 \cdot
-                    \left(\frac{1}{N-n_1}\right) \cdot 
-                    \left(\frac{N-n_1}{N}\right) \\
-                    &= N(r_1 - \bar{r}) \cdot p_1 \cdot
-                    \left(\frac{1}{N-n_1}\right) \cdot 
-                    \left(\frac{N-n_1}{N}\right) \\
-                    &= p_1(r-\bar{r})
-                \end{split}
-            \end{equation*}
+            By the definition of fitness in discrete generations, $w$ is given by $w = \frac{N_{i+1}}{N_i}$.
+            This gives $N_{i} = w^{i} N_0$. 
+            Since $N_i = 2N_0$ by the given condition, $i = \log{2}/\log{w}$.
         \end{proof}
-
-
     \end{problem}
+
+    \begin{problem}
+        How long is required for the population to double with model 2?
+        
+        \begin{proof}
+            By the definition of fitness in continuous generations, $w$ is given by $w = \frac{1}{N} \frac{dN}{dt}$.
+            This gives $\frac{1}{N}dN = wdt$ followed by $\int_{N_0}^{N} \frac{1}{N}dN = \int_{t_0}^{t} w dt$. 
+            Therefore, $\log2 = \log{\frac{N}{N_0}} = w(t - t_0)$.
+        \end{proof}
+    \end{problem}
+
+    \begin{problem}
+        A population under model 3 has reached age stability. 
+        How long, in units of $\lambda$, will be required for the population to double? 
+        What is the effective generation length, defined as the unit that will give the same answer as problem 1?
+
+        \begin{proof}
+            Assume that, like the textbook, every individual lives for 5 years.
+
+            Let $n_t = (n_{0t}, n_{1t}, \ldots, n_{4t})^T$, $(b_0, b_1, \ldots, b_4)$ and $(p_0, \ldots, p_3)$ denote the number of individuals in each age, reproduction rates of each age and probability of survival of each age respectively.
+            Then the following matrix equation holds:
+            \begin{equation*}
+                n_t = 
+                \begin{pmatrix}
+                    n_{0,t}\\
+                    n_{1,t}\\
+                    n_{2,t}\\
+                    n_{3,t}\\
+                    n_{4,t}\\
+                \end{pmatrix} =  
+                \begin{pmatrix}
+                    b_0 & b_1 & b_2 & b_3 & b_4 \\
+                    p_0 & 0 & 0 & 0 & 0\\
+                    0 & p_1 & 0 & 0 & 0\\
+                    0 & 0 & p_2 & 0 & 0\\
+                    0 & 0 & 0 & p_3 & 0\\
+                \end{pmatrix}
+                \begin{pmatrix}
+                    n_{0,t-1}\\
+                    n_{1,t-1}\\
+                    n_{2,t-1}\\
+                    n_{3,t-1}\\
+                    n_{4,t-1}\\
+                \end{pmatrix} 
+                = A \cdot n_{t-1}
+            \end{equation*}
+
+            Then, by induction, we obtain $n_t = A^{t}n_0$.
+            To compute the power of the matrix $A$, we compute the characteristic polynomial and assume that it has at least one zero:
+            \begin{equation*}
+                \det{(A-\lambda I)} = \lambda^5 -b_0\lambda^4 -p_0b_1\lambda^3 - p_0p_1b_2\lambda^2 - p_0p_1p_2b_3\lambda - p_0p_1p_2p_3b_4 
+            \end{equation*}
+            
+            Under suitable conditions, the polynomial above has a single positive largest(in terms of absolute value) zero $\lambda^*$ and a corresponding eigenvector $l^*$.
+
+            For a large $t$, $({l^*})^t$ dominates all other power of eigenvalues, so $M^t n_0$, which is expressed as a linear combination of power of eigenvalues, can be approximated by
+            \begin{equation*}
+                M^{t} n_0 \approx C M^{t} l = C {(\lambda^*)}^t l
+            \end{equation*}
+            where $C$ is a constant determined by the initial condition.
+
+            $N_t$, the size of the population at time $t$, is given as the sum of entries of $n_t$.
+            Therefore, $N_t = n_0 + n_1 + \ldots + n_4 = C' (\lambda^*)^t$ by the above equation.
+            Hence, using $N_t = 2N_0$, we get $t = \log{2}/\log{\lambda}$.
+        \end{proof}
+    \end{problem}
+
+    \begin{problem}
+        Suppose you know the age-specific death rates (the probability that an individual of age x will die during the next time unit). What is the life expectancy, that is, the mean length of life? What is the median length of life?
+
+        \begin{proof}
+            Let $\{p_i\}_{i \in \mathbb{Z}_{\geq 0}}$ be the probability that an individual will survive during age $i$.
+            Then the probability of survival until age t is given as the product of $p_i$ from $0$ to $t-1$.
+            Thus, the expectation is given by
+            \begin{equation*}
+                E(X) = \sum_{k=0}^{\infty} \left( k \cdot \prod_{i=0}^{k}p_i \right)
+            \end{equation*}
+
+            The median value can also be computed in a similar manner using formulas from basic probability theory.
+        \end{proof}
+    \end{problem}
+
+
+        \begin{problem}
+            Show that equation $1.6.8a$ is correct for any number of strains.
+            \begin{proof}
+                Suppose that there are $k$ strains and $n_1, \ldots, n_k$ individuals for each strain. The Malthusian parameters of each strain is given as $r_1, \ldots, r_k$.
+
+                Now we use the same method in the textbook.
+                \begin{equation*}
+                    \begin{split}
+                        \frac{d \ln(p_1/(1-p_1))}{dt}
+                        &= \frac{d \ln(n_1/(N-n_1)}{dt}  \\
+                        &= \frac{d n_1}{dt} - \frac{d (N-n_1)}{dt} \\
+                        &= \frac{d \ln{n_1}}{n_1 dt} - \frac{d \ln(N-n_1)}{(N-n_1) dt} \\
+                        &= r_1 - \bar{r}_1
+                    \end{split}
+                \end{equation*}
+                Here, $\bar{r}_i$ denotes the mean parameter except for the $i$-th strain. 
+
+                Notice also that
+                \begin{equation*}
+                    \begin{split}
+                        \frac{d \ln(p_1/(1-p_1))}{dt}
+                        &= \frac{\ln{p_1}}{dt} - \frac{\ln{1-p_1}}{dt} \\
+                        &= \frac{d p_1}{p_1 dt} - \frac{d (1-p_1)}{(1-p_1)dt} \\
+                        & = \frac{dp_1}{p_1(1-p_1)dt}
+                    \end{split}
+                \end{equation*}
+
+                Putting these two equations together gives
+                \begin{equation*}
+                    \begin{split}
+                        \frac{dp_1}{dt} 
+                        &= (r_1-\bar{r}_1)p_1(1-p_1) \\
+                        &= ((N-n_1)r_1 - (n_2r_2 + \ldots + n_kr_k)) \cdot p_1 \cdot
+                        \left(\frac{1}{N-n_1}\right) \cdot (1-p_1) \\
+                        &= (Nr_1 - (n_1r_1 + \ldots + n_kr_k)) \cdot p_1 \cdot
+                        \left(\frac{1}{N-n_1}\right) \cdot 
+                        \left(\frac{N-n_1}{N}\right) \\
+                        &= N(r_1 - \bar{r}) \cdot p_1 \cdot
+                        \left(\frac{1}{N-n_1}\right) \cdot 
+                        \left(\frac{N-n_1}{N}\right) \\
+                        &= p_1(r-\bar{r})
+                    \end{split}
+                \end{equation*}
+            \end{proof}
+
+
+        \end{problem}
+
+        \begin{problem}
+            What are the median and mean length of life under model 2, expressed in terms of the death rate, d?
+            \begin{proof}
+                Suppose that $N_0$ individuals were born at a given time $t_0$. 
+                Then the following equation holds:
+                \begin{equation*}
+                    \frac{dN_t}{dt} = -dN_t
+                \end{equation*}
+                The solution to this differential equation is 
+                \begin{equation*}
+                    N = N_0 e^{-dt}
+                \end{equation*}
+                Thus, the number of dead individuals are
+                \begin{equation*}
+                    N_0 - N = N_0(1-e^{-dt})
+                \end{equation*}
+                Therefore, the cumulative distribution function of survival time $t$ is given as
+                \begin{equation*}
+                    F(t) = 1- e^{-dt}
+                \end{equation*}
+                The resulting probability density function $f(t)$ is
+                \begin{equation*}
+                    f(t) = de^{-dt}
+                \end{equation*}
+                Hence, the expectation can be computed.
+                \begin{equation*}
+                    \int_{0}^{\infty} {t \cdot de^{-dt} dt} = \frac{1}{d}
+                \end{equation*}
+            \end{proof}
+        \end{problem}
+    
+        \begin{problem}
+            Show that the time required to change the number from $N_0$ to $N_t$ in a logistically growing population exceeds that in an unregulated population with the same intrinsic rate of increase by $\log[(K-N_0)/(K-N_t)]/r$.
+            \begin{proof}
+                By equation (1.6.3) given in the book,
+                \begin{equation*}
+                    t_l = \frac{1}{r} \log \frac{N_t(K-N_0)}{(K-N_t)N_0}
+                \end{equation*}
+                for logistically a growing population.
+
+                For a exponentially growing populations,
+                \begin{equation*}
+                    t_e = \frac{1}{r} \log \frac{N_t}{N_0}
+                \end{equation*}
+                Substracting $t_e$ from $t_l$, we have
+                \begin{equation*}
+                    t_l - t_e = \frac{1}{r} \log \frac{K-N_0}{K-N_t}
+                \end{equation*}
+            \end{proof}
+        \end{problem}
+
+
+        \begin{problem}
+            Again considering a logistic population with carrying capicity $K$, what is the time required to go from a fraction $x$ to a fraction $y$ of this capacity?
+            \begin{proof}
+                Simply put $N_t = yK$ and $N_0 = xK$ to (1.6.3) of textbok.
+                \begin{equation*}
+                    \begin{split}
+                        t &= \frac{1}{r} \log \frac{yK(K-xK)}{(K-yK)xK} \\
+                        &= \frac{1}{r} \log \frac{y(1-x)}{(1-y)x}
+                    \end{split}
+                \end{equation*}
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            One bactrium which reproduces by fission and follows a logistic growth pattern is introducted into each of several ponds.
+            Show that the time required to fill a pond to half its capacity is proportional to the log of the carrying capacity.
+            \begin{proof}
+                Simply put $N_t=(1/2)K$ to (1.6.3) of textbook.
+               \begin{equation*}
+                   \begin{split}
+                       t &= \frac{1}{r} \log \frac{(1/2)\cdot K(K-1)}{(K-(1/2)K)\cdot 1} \\
+                         &\approx \frac{1}{r} \log{K}
+                   \end{split}
+               \end{equation*}
+
+            \end{proof}
+        \end{problem}
+
 
 \end{document}
