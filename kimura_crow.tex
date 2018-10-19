@@ -7,10 +7,16 @@
 \usepackage{amsmath, amssymb, latexsym, amsfonts, amsthm}
 
 %% theorem specification
+\theoremstyle{definition}
 \newtheorem{problem}{Problem}[chapter]
 
+%% advanced tabular
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
 
-%%%%%%%%%%%%%%5
+%% fraction adjustment
+
+%%%%%%%%%%%%%%
 \begin{document}
 \begin{titlepage}
 \centering
@@ -332,4 +338,143 @@ Hanbin Lee
             \end{proof}
 
         \end{problem}
+
+        \begin{problem}
+            From the data given on color blindness, what fraction of women would be of normal vision, but carrying two different color-blind factors?
+            \begin{proof}
+                The solution is in the textbook
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            Show that in a randomly-mating population with two allels half the heterozygotes have heteroztgous mothers.
+            \begin{proof}
+                \begin{equation*}
+                    \begin{split}
+                        P(\mathrm{\{Het Mother\}|\{Het Child\}}) &= 
+                        \frac{P(\mathrm{\{Het Mother\} \cap \{Het Child\}})}{P(\mathrm{\{Het Child\}})}\\
+                        &= \frac{2pq \cdot 0.5 \cdot (p+q)}{2pq}  \\
+                        &= \frac{pq}{2pq} \\ 
+                        &= \frac{1}{2}
+                    \end{split}
+                \end{equation*}
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            Here are some hypothetical data on the frequencies of the ABO blood groups:
+            \begin{center}
+                \begin{tabular}{ccccccc}
+                    \hline
+                    Genotype: & OO & OA & AA & OB & BB & AB \\
+                    Frequency: & .40 & .30 & .08 & .12 & .04 & .06\\
+                    \hline
+                \end{tabular}
+            \end{center}
+            What would be the frequencies be next generation if mating were at random?
+            \begin{proof}
+                Let frequency of A, B, O alleles be $p,q,r$.
+                Their values are 
+                $p = 0.5 \cdot (0.08 \cdot 2 + 0.30 + 0.06) = 0.26$,
+                $q = 0.5 \cdot (0.04 \cdot 2 + 0.12 + 0.06) = 0.13$,
+                $r = 0.5 \cdot (0.40 \cdot 2 + 0.30 + 0.12) = 0.61$.
+
+                Under random mating, Hardy-Weinberg equilibrium is reached in a single generation.
+                Therefore, the frequencies are:
+                \begin{center}
+                    \begin{tabular}{ccccccc}
+                        \hline
+                        Genotype: & OO & OA & AA & OB & BB & AB \\
+                        Frequency: & .37 & .32 & .07 & .16 & .02 & .07\\
+                        \hline
+                    \end{tabular}
+                \end{center}
+                by $(p+q+r)^2 = p^2 + q^2 + r^2 + 2pq + 2qr + 2rp$.
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            Letting $p,q$ and $r$ stand for the frequencies of the A, B and O blood group alleles, what is the probability that two persons chosen at random have the same blood group?
+            \begin{proof}
+                Simply,
+                \begin{equation*}
+                    (p^2)^2 + (q^2)^2 + (r^2)^2 + (2pq)^2 + (2qr)^2 + (2rp)^2
+                \end{equation*}
+                by independence.
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            An outrageously careless hospital give transfusions at random.
+            What proportion would be mismatches?
+            (To refresh your memory, group O can give to anyone, A to A or AB, B to B or AB and AB only to AB.)
+            \begin{proof}
+                AB patients can accept any: $1$.
+                A can accept O and A: $r^2+p^2+2rp$.
+                B can accept O and B: $r^2+q^2+2rq$.
+                O can accept only O: $r^2$.
+                Sum up these values proportional to the frequency of the blood group.
+            \end{proof}
+        \end{problem}
+        
+        \begin{problem}
+            Show that if $p$ is the frequency of a recessive allele, the average proportion of recessive children when one parent is of the dominant phenotype and the other of the recessive phenotype is $p/(1+p)$, and when both parents are of the dominant phenotype is $[p/(1+p)]^2$.
+            \begin{proof}
+                Note that the parent with dominant phenotype can be either heterozygous or homozygous.
+                \begin{description}
+                    \item[i) Dominant-Recessive]{
+                        \begin{equation*}
+                            \frac{2pq \cdot (1/2) + q^2 \cdot 0}
+                            {2pq+q^2} 
+                            = \frac{pq}{1-p^2}
+                            = \frac{p}{1+p}
+                        \end{equation*}
+                    }
+                    \item[ii) Dominant-Dominant]{
+                        \begin{equation*}
+                            \begin{split}
+                            \frac{2pq \cdot 2pq \cdot (1/4)}{2pq\cdot 2pq + q^2 \cdot q^2 + 2\cdot q^2 \cdot 2pq} 
+                            &= \frac{p^2q^2}{4p^2q^2+q^4+4p^3q} \\
+                            &= \frac{p^2q^2}{(q^2+2pq)^2} \\
+                            &= \left(\frac{pq}{1-p^2}\right)^2 \\
+                            &= \left( \frac{p}{1+p} \right)^2
+                        \end{split}
+                        \end{equation*}
+                    }
+                \end{description}
+                
+            \end{proof}
+        \end{problem}
+
+        \begin{problem}
+            The two ratios, $p/(1+p)$ and $[p/(1+p)]^2$, are sometimes called Snyder's ratios and the fact that one is the square of the other is sometimes used as a test for recessive inheritance.
+            Does this discriminate between a trait caused by a single pair of recessive genes and one caused by simultaneous homozygosity for several recessive genes?
+        \end{problem}
+
+        \begin{problem}
+            Does the answer to problem 13 depend on whether the genes are independent or not? Must they be in gamtiec phase equilibrium?
+        \end{problem}
+
+        \begin{problem}
+            A. G. Searle (\textit{J. Genet.} 56: 1-17, 1959) reports the following frequencies of coat colors of cats in Singapore.
+            The observed numbers were as follows:
+
+            \begin{center}
+                \begin{tabularx}{0.7\textwidth}{|*{6}{Y|}}
+                \hline 
+                \multicolumn{3}{|c|}{Females} &
+                \multicolumn{2}{c|}{Males} \\
+                \hline
+                Dark & Calico & Yellow & Dark & Yellow \\
+                \hline
+                +/+ & +/y & y/y & + & y \\
+                \hline
+                63 & 55 & 12 & 74 & 38 \\
+                \hline
+            \end{tabularx}
+            \end{center}
+            
+            Use the maximum-likelihood method to compute the gene frequency and test by Chi-square the agreement with the hypothesis of random-mating proportions.
+        \end{problem}
+           
 \end{document}
